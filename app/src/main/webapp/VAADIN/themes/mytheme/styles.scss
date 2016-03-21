@@ -1,0 +1,88 @@
+@import "mytheme.scss";
+@import "addons.scss";
+
+// This file prefixes all rules with the theme name to avoid causing conflicts with other themes.
+// The actual styles should be defined in mytheme.scss
+
+.mytheme {
+    @include addons;
+    @include mytheme;
+
+
+    
+    .WelcomeView {
+        background-color: #00A2FF;
+    }
+
+    .WelcomeView-frontLayout {
+        background-color: white;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 40px;
+        border-color: #000000;
+    }
+
+    .WelcomeView-contentLayout {
+
+    }
+
+    .WelcomeView-leftLayout {
+
+    }
+
+    .WelcomeView-centerLayout {
+        background-color: #000000;
+    }
+
+    .WelcomeView-rightLayout {
+
+    }
+
+    .WelcomeView-leftContentLayout {
+
+    }
+
+    .WelcomeView-pinBoardLogoImage { 
+        margin-left: 40px;
+        margin-top: -20px;
+    }
+
+    .WelcomeView-welcomeTextLabel {
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 30px;
+        font-size: 24px;
+        text-align: justify;
+    }
+
+    .WelcomeView-loginForm {
+        margin-left: 40px;
+        margin-top: 30px;
+    }
+
+    .MyLoginForm-emailField {
+        margin-bottom: 20px;
+    }
+
+    .MyLoginForm-passwordField {
+        margin-bottom: 30px;
+    }
+
+    .MyLoginForm-logInButtonAndWrongPasswordOrEmailLabelLayout {
+
+    }
+
+    .MyLoginForm-logInButton { 
+   
+    }
+
+    .v-captiontext {
+        font-size: 18px;
+    }
+
+    .MyLoginForm-wrongPasswordOrEmailLabel {
+        margin-left: 20px;
+        margin-top: 8px;
+        color: #E0121D;
+    }
+}
