@@ -12956,7 +12956,6 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .WelcomeView-welcomeTextLabel {
 	margin-left: 40px;
-	margin-right: 40px;
 	margin-top: 30px;
 	font-size: 24px;
 	text-align: justify;
@@ -12964,7 +12963,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .WelcomeView-loginForm {
 	margin-left: 40px;
-	margin-top: 30px;
+	margin-top: 58px;
 }
 
 .mytheme .MyLoginForm-emailField {
@@ -12982,5 +12981,73 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .MyLoginForm-wrongPasswordOrEmailLabel {
 	margin-left: 20px;
 	margin-top: 8px;
-	color: #E0121D;
+	color: red;
+}
+
+.mytheme .WelcomeForm-registrationForm {
+	margin-left: 40px;
+}
+
+.mytheme .MyRegistrationForm-registrationTitleLabel {
+	margin-top: 40px;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.mytheme .MyRegistrationForm-registrationTextLabel {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 24px;
+	text-align: justify;
+}
+
+.mytheme .MyRegistrationForm-nameField {
+	margin-bottom: 20px;
+}
+
+.mytheme .MyRegistrationForm-wrongNameFormatLabel {
+	margin-left: -220px;
+	margin-top: 2px;
+	text-align: right;
+	color: red;
+}
+
+.mytheme .MyRegistrationForm-surnameField {
+	margin-bottom: 20px;
+}
+
+.mytheme .MyRegistrationForm-wrongSurnameFormatLabel {
+	margin-left: -220px;
+	margin-top: 2px;
+	text-align: right;
+	color: red;
+}
+
+.mytheme .MyRegistrationForm-emailField {
+	margin-bottom: 20px;
+}
+
+.mytheme .MyRegistrationForm-wrongEmailFormatLabel {
+	margin-left: -220px;
+	margin-top: 2px;
+	text-align: right;
+	color: red;
+}
+
+.mytheme .MyRegistrationForm-passwordField {
+	margin-bottom: 30px;
+}
+
+.mytheme .MyRegistrationForm-wrongPasswordFormatLabel {
+	margin-left: -220px;
+	margin-top: 2px;
+	text-align: right;
+	color: red;
+}
+
+.mytheme .MyRegistratnioForm-signUpFailedLabel {
+	margin-left: 30px;
+	margin-top: 8px;
+	color: red;
 }

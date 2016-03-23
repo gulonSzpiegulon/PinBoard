@@ -49,7 +49,6 @@
 
     .WelcomeView-welcomeTextLabel {
         margin-left: 40px;
-        margin-right: 40px;
         margin-top: 30px;
         font-size: 24px;
         text-align: justify;
@@ -57,7 +56,7 @@
 
     .WelcomeView-loginForm {
         margin-left: 40px;
-        margin-top: 30px;
+        margin-top: 58px;
     }
 
     .MyLoginForm-emailField {
@@ -83,6 +82,98 @@
     .MyLoginForm-wrongPasswordOrEmailLabel {
         margin-left: 20px;
         margin-top: 8px;
-        color: #E0121D;
+        color: red;
+    }
+
+    .WelcomeForm-registrationForm {
+       margin-left: 40px;
+    }
+
+    .MyRegistrationForm-registrationTitleLabel {
+        margin-top: 40px;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .MyRegistrationForm-registrationTextLabel {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-size: 24px;
+        text-align: justify;
+    }
+
+    .MyRegistrationForm-nameLayout {
+
+    }
+
+    .MyRegistrationForm-surnameLayout {
+
+    }
+
+    .MyRegistrationForm-emailLayout {
+
+    }
+
+    .MyRegistrationForm-passwordLayout {
+
+    }
+
+    .MyRegistrationForm-signUpLayout {
+
+    }
+
+    .MyRegistrationForm-nameField {
+       margin-bottom: 20px;
+    }
+
+    .MyRegistrationForm-wrongNameFormatLabel {
+        margin-left: -220px;
+        margin-top: 2px;
+        text-align: right;
+        color: red;
+    }
+
+    .MyRegistrationForm-surnameField {
+        margin-bottom: 20px;
+    }
+
+    .MyRegistrationForm-wrongSurnameFormatLabel {
+        margin-left: -220px;
+        margin-top: 2px;
+        text-align: right;
+        color: red;
+    }
+
+    .MyRegistrationForm-emailField {
+        margin-bottom: 20px;
+    }
+
+    .MyRegistrationForm-wrongEmailFormatLabel {
+        margin-left: -220px;
+        margin-top: 2px;
+        text-align: right;
+        color: red;
+    }
+
+    .MyRegistrationForm-passwordField {
+        margin-bottom: 30px;
+    }
+
+    .MyRegistrationForm-wrongPasswordFormatLabel {
+        margin-left: -220px;
+        margin-top: 2px;
+        text-align: right;
+        color: red;
+    }
+
+    .MyRegistrationForm-signUpButton {
+
+    }
+
+    .MyRegistratnioForm-signUpFailedLabel {
+        margin-left: 30px;
+        margin-top: 8px;
+        color: red;
     }
 }

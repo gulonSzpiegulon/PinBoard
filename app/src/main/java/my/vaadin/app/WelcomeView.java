@@ -73,6 +73,10 @@ public class WelcomeView extends VerticalLayout implements View {
 		
 		leftContentLayout.addComponents(pinBoardLogoImage, welcomeTextLabel, loginForm);
 		
+		MyRegistrationForm RegistrationForm = new MyRegistrationForm();
+		RegistrationForm.addStyleName("WelcomeForm-registrationForm");
+		
+		rightLayout.addComponent(RegistrationForm);
 		
 		
 	}
