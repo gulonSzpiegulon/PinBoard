@@ -1,6 +1,10 @@
 package my.vaadin.app;
 
 import com.vaadin.data.Validator;
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.util.ObjectProperty;
+import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
@@ -223,6 +227,61 @@ public class MyRegistrationForm extends VerticalLayout {
 				
 				System.out.println("Sending data to SERVER!!! :)");	//moze trzeba dodac jeszcze buttonClicked = false po jednym kliknieciu zeby dwa razy sie nie zrobilo...??
 				//łączenie z serwerem
+				
+				PropertysetItem item = new PropertysetItem();
+				item.addItemProperty("name", new ObjectProperty<String>(nameField.getValue()));
+				item.addItemProperty("surname", new ObjectProperty<String>(surnameField.getValue()));		
+				FieldGroup binder = new FieldGroup(item);
+				binder.bind(nameField, "name");
+				binder.bind(surnameField, "surname");
+				
+				
+				boolean canLogInNow = true;
+				try {	
+					binder.commit();
+				} catch (CommitException e) {
+					canLogInNow = false;
+				}
+				if (canLogInNow == true) {
+					//CSSInject css = new CSSInject();		//zmienic kolor na zielony mozna by i pomyslec jak to zorbic zeby znikal ten napis wgl gdy sie zrobi focus na jakimkolwiek polu 
+															//najlepiej by bylo jakoby mozna bylo zrobic atFocusDisapears...
+					signUpFailedLabel.setValue("Now you can log in!");
+				}
+				
+				System.out.println(item.getItemProperty("name").toString() + " " + item.getItemProperty("surname").toString());
+				
+				
+				
+//				BoardUser bean = new BoardUser();
+//				
+//				
+//				
+//				BeanItem<BoardUser> item = new BeanItem<BoardUser>(bean);
+//				BeanFieldGroup fieldGroup = new BeanFieldGroup();
+//				fieldGroup.setItemDataSource(item);
+//				
+//				fieldGroup.add
+//				
+////				
+//				MethodProperty nameProperty = new MethodProperty<>("Joe", boardUser.getName());
+//				nameField.setPropertyDataSource(nameProperty);
+//				
+////				String myObject = "Elwood";
+////				ObjectProperty nameProperty = new ObjectProperty(myObject, String.class);
+////				nameField.setPropertyDataSource(nameProperty);
+//				
+//				System.out.println(nameProperty.getValue().toString());
+//				
+////				MethodProperty surnameProperty = new MethodProperty<>("Smith", boardUser.getSurname());
+////				surnameField.setPropertyDataSource(surnameProperty);
+////				
+////				MethodProperty emailProperty = new MethodProperty<>("joe.smith@gmail.com", boardUser.getMail());
+////				emailField.setPropertyDataSource(emailProperty);
+////				
+////				MethodProperty passwordProperty = new MethodProperty<>("!123!123ewaAWE", boardUser.getPassword());
+////				passwordField.setPropertyDataSource(passwordProperty);
+				
+				
 			}
 		});
 		signUpFailedLabel = new Label("");
