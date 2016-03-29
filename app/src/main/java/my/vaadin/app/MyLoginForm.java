@@ -7,6 +7,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -17,7 +18,7 @@ public class MyLoginForm extends VerticalLayout {
 	private final Button logInButton;
 	private final Label wrongPasswordOrEmailLabel;
 	
-	public MyLoginForm() {
+	public MyLoginForm(MyRegistrationForm registrationForm) {
 		setSizeUndefined();
 		
 		emailField = new TextField("E-mail:");
@@ -52,16 +53,13 @@ public class MyLoginForm extends VerticalLayout {
 		logInButton.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				//to poniższe trzeba zamienic na sprawdzenie w bazie danych jak juz takowa powstanie
-		        boolean isValid = emailField.getValue().equals("123")
-		                && passwordField.getValue().equals("321");
-
-		        if (isValid) {
-		            getSession().setAttribute("user", emailField.getValue());
-		            getUI().getNavigator().navigateTo("Board");
-		        } else {		        	
-		        	wrongPasswordOrEmailLabel.setValue("Incorrect password or e-mail!");
-		        }
+				Table tableOfUsers = registrationForm.getTableOfUsers();
+				if (tableOfUsers.containsId(emailField.getValue()) && tableOfUsers.getItem(emailField.getValue()).getItemProperty("password").getValue().toString().equals(passwordField.getValue())) {
+					getSession().setAttribute("user", emailField.getValue());
+					getUI().getNavigator().navigateTo("Board");
+				} else {
+					wrongPasswordOrEmailLabel.setValue("Incorrect password or e-mail!");
+				}
 	        }
 		});
 	    

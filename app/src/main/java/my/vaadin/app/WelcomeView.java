@@ -68,17 +68,15 @@ public class WelcomeView extends VerticalLayout implements View {
 		welcomeTextLabel.setWidth("419px");
 		welcomeTextLabel.addStyleName("WelcomeView-welcomeTextLabel");
 		
-		MyLoginForm loginForm = new MyLoginForm();
+		MyRegistrationForm registrationForm = new MyRegistrationForm();
+		registrationForm.addStyleName("WelcomeForm-registrationForm");
+		
+		rightLayout.addComponent(registrationForm);
+		
+		MyLoginForm loginForm = new MyLoginForm(registrationForm);
 		loginForm.addStyleName("WelcomeView-loginForm");
 		
 		leftContentLayout.addComponents(pinBoardLogoImage, welcomeTextLabel, loginForm);
-		
-		MyRegistrationForm RegistrationForm = new MyRegistrationForm();
-		RegistrationForm.addStyleName("WelcomeForm-registrationForm");
-		
-		rightLayout.addComponent(RegistrationForm);
-		
-		
 	}
 	@Override
 	public void enter(ViewChangeEvent event) {

@@ -1,15 +1,15 @@
 package my.vaadin.app;
 
 import com.vaadin.data.Validator;
-import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.util.ObjectProperty;
-import com.vaadin.data.util.PropertysetItem;
+import com.vaadin.data.util.BeanContainer;
+import com.vaadin.event.FieldEvents.BlurEvent;
+import com.vaadin.event.FieldEvents.BlurListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -20,12 +20,14 @@ public class MyRegistrationForm extends VerticalLayout {
 	private final Label wrongNameFormatLabel;
 	private final TextField surnameField;
 	private final Label wrongSurnameFormatLabel;
-	private final TextField emailField;
-	private final Label wrongEmailFormatLabel;
+	private final TextField mailField;
+	private final Label wrongMailFormatLabel;
 	private final PasswordField passwordField;
 	private final Label wrongPasswordFormatLabel;
 	private final Button signUpButton;
 	private final Label signUpFailedLabel;
+	private final BeanContainer<String, BoardUser> userDataBase;
+	private final Table tableOfUsers;
 	
 	private final class NameValidator implements Validator {
 		private boolean isValid = false; 
@@ -115,10 +117,10 @@ public class MyRegistrationForm extends VerticalLayout {
 			if (!trimmedValue.isEmpty() 
 					&& !trimmedValue.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:"
 							+ "[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
-				wrongEmailFormatLabel.setValue("Wrong email format!");
+				wrongMailFormatLabel.setValue("Wrong email format!");
 				isValid = false;
 			} else {
-				wrongEmailFormatLabel.setValue("");
+				wrongMailFormatLabel.setValue("");
 				isValid = true;
 			}
 		}
@@ -181,19 +183,19 @@ public class MyRegistrationForm extends VerticalLayout {
 		surnameLayout.setSizeUndefined();
 		surnameLayout.addStyleName("MyRegistrationForm-surnameLayout");
 		
-		emailField = new TextField("E-mail:");
-		emailField.setWidth("330px");	
-		emailField.setRequired(true);
+		mailField = new TextField("E-mail:");
+		mailField.setWidth("330px");	
+		mailField.setRequired(true);
 		EmailValidator emailValidator = new EmailValidator();
-		emailField.addValidator(emailValidator);
-		emailField.setInvalidAllowed(false);
-		emailField.addStyleName("MyRegistrationForm-emailField");
-		wrongEmailFormatLabel = new Label("");
-		wrongEmailFormatLabel.addStyleName("MyRegistrationForm-wrongEmailFormatLabel");
-		wrongEmailFormatLabel.setWidth("300px");
-		HorizontalLayout emailLayout = new HorizontalLayout(emailField, wrongEmailFormatLabel);
-		emailLayout.setSizeUndefined();
-		emailLayout.addStyleName("MyRegistrationForm-emailLayout");
+		mailField.addValidator(emailValidator);
+		mailField.setInvalidAllowed(false);
+		mailField.addStyleName("MyRegistrationForm-mailField");
+		wrongMailFormatLabel = new Label("");
+		wrongMailFormatLabel.addStyleName("MyRegistrationForm-wrongMailFormatLabel");
+		wrongMailFormatLabel.setWidth("300px");
+		HorizontalLayout mailLayout = new HorizontalLayout(mailField, wrongMailFormatLabel);
+		mailLayout.setSizeUndefined();
+		mailLayout.addStyleName("MyRegistrationForm-mailLayout");
 		
 		passwordField = new PasswordField("Password:");
 		passwordField.setWidth("330px");	
@@ -215,73 +217,25 @@ public class MyRegistrationForm extends VerticalLayout {
 		signUpButton.addStyleName("MyRegistrationForm-signUpButton");
 		signUpButton.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				if (nameField.getValue().isEmpty() || surnameField.getValue().isEmpty() || emailField.getValue().isEmpty() || passwordField.getValue().isEmpty()) {
+				if (nameField.getValue().isEmpty() || surnameField.getValue().isEmpty() || mailField.getValue().isEmpty() || passwordField.getValue().isEmpty()) {
 					signUpFailedLabel.setValue("At least one of the fields is empty!");
-					return;
 				} else if (!nameValidator.isValid || !surnameValidator.isValid || !emailValidator.isValid || !passwordValidator.isValid) {
 					signUpFailedLabel.setValue("At least one of the fields is incorrect!");
-					return;	
 				} else {
-					signUpFailedLabel.setValue("");
+					if (tableOfUsers.containsId(mailField.getValue())) {
+						wrongMailFormatLabel.setValue("This e-mail is occupied already!");
+						signUpFailedLabel.setValue("Try another e-mail address!");
+					} else {
+						userDataBase.addBean(new BoardUser(nameField.getValue(), surnameField.getValue(), mailField.getValue(), passwordField.getValue()));
+						signUpFailedLabel.setValue("You've registered succesfully!");
+					}
 				}
-				
-				System.out.println("Sending data to SERVER!!! :)");	//moze trzeba dodac jeszcze buttonClicked = false po jednym kliknieciu zeby dwa razy sie nie zrobilo...??
-				//łączenie z serwerem
-				
-				PropertysetItem item = new PropertysetItem();
-				item.addItemProperty("name", new ObjectProperty<String>(nameField.getValue()));
-				item.addItemProperty("surname", new ObjectProperty<String>(surnameField.getValue()));		
-				FieldGroup binder = new FieldGroup(item);
-				binder.bind(nameField, "name");
-				binder.bind(surnameField, "surname");
-				
-				
-				boolean canLogInNow = true;
-				try {	
-					binder.commit();
-				} catch (CommitException e) {
-					canLogInNow = false;
-				}
-				if (canLogInNow == true) {
-					//CSSInject css = new CSSInject();		//zmienic kolor na zielony mozna by i pomyslec jak to zorbic zeby znikal ten napis wgl gdy sie zrobi focus na jakimkolwiek polu 
-															//najlepiej by bylo jakoby mozna bylo zrobic atFocusDisapears...
-					signUpFailedLabel.setValue("Now you can log in!");
-				}
-				
-				System.out.println(item.getItemProperty("name").toString() + " " + item.getItemProperty("surname").toString());
-				
-				
-				
-//				BoardUser bean = new BoardUser();
-//				
-//				
-//				
-//				BeanItem<BoardUser> item = new BeanItem<BoardUser>(bean);
-//				BeanFieldGroup fieldGroup = new BeanFieldGroup();
-//				fieldGroup.setItemDataSource(item);
-//				
-//				fieldGroup.add
-//				
-////				
-//				MethodProperty nameProperty = new MethodProperty<>("Joe", boardUser.getName());
-//				nameField.setPropertyDataSource(nameProperty);
-//				
-////				String myObject = "Elwood";
-////				ObjectProperty nameProperty = new ObjectProperty(myObject, String.class);
-////				nameField.setPropertyDataSource(nameProperty);
-//				
-//				System.out.println(nameProperty.getValue().toString());
-//				
-////				MethodProperty surnameProperty = new MethodProperty<>("Smith", boardUser.getSurname());
-////				surnameField.setPropertyDataSource(surnameProperty);
-////				
-////				MethodProperty emailProperty = new MethodProperty<>("joe.smith@gmail.com", boardUser.getMail());
-////				emailField.setPropertyDataSource(emailProperty);
-////				
-////				MethodProperty passwordProperty = new MethodProperty<>("!123!123ewaAWE", boardUser.getPassword());
-////				passwordField.setPropertyDataSource(passwordProperty);
-				
-				
+			}
+		});
+		signUpButton.addBlurListener(new BlurListener() {
+			@Override
+			public void blur(BlurEvent event) {
+				signUpFailedLabel.setValue("");
 			}
 		});
 		signUpFailedLabel = new Label("");
@@ -291,9 +245,19 @@ public class MyRegistrationForm extends VerticalLayout {
 		signUpLayout.setSizeUndefined();
 		signUpLayout.addStyleName("MyRegistratationForm-signUpLayout");
 		signUpLayout.addComponents(signUpButton, signUpFailedLabel);
-		//przy buttonie przd wyslaniem na serwer trzeba sprawdzic czy pola sa wypelnione i sprawdzic booleany ze wszystkich validatorow czy validuja, jak nie to komunikat przy buttonie
 		
-		
-		addComponents(registrationTitleLabel, registrationTextLabel, nameLayout, surnameLayout, emailLayout, passwordLayout, signUpLayout);
+		userDataBase = new BeanContainer<String, BoardUser>(BoardUser.class);
+		userDataBase.setBeanIdProperty("mail");
+		tableOfUsers = new Table("Table of board users", userDataBase);	//dobra chyba lepiej to wywalic do zewnetrznej klasy ktora jeszcze bedzie miala mozliwosc zapisu do 
+		//pliku i odczytu z pliku bo po zalowoganiu i wylogowaniu juz nie da sie zalogowac bo wszystkie dane sa tracone no bo wychodzimy z registratnion form i twrzy sie nowe
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//!!!!!!!!!!!!!!!!!!!!!!!!!
+		addComponents(registrationTitleLabel, registrationTextLabel, nameLayout, surnameLayout, mailLayout, passwordLayout, signUpLayout);
+	}
+	
+	Table getTableOfUsers() {
+		return tableOfUsers;
 	}
 }

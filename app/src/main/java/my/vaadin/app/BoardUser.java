@@ -7,6 +7,14 @@ public class BoardUser {
 	private String password = "";
 	private PinBoard boardLayout = new PinBoard();	//moze sie tak uda	ewentualnie String boardLayout (moze tak po prostu bedzie prościej - 
 											//z niewidocznym polem tekstowym przez ktore bedzie sie ustawiać nową wartość
+	
+	public BoardUser(String name, String surname, String mail, String password) {
+		this.name = name;
+		this.surname = surname;
+		this.mail = mail;
+		this.password = password;
+	}
+	
 	public String getName() {
 		return name;
 	}
