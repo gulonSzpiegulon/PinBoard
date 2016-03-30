@@ -18,7 +18,7 @@ public class MyLoginForm extends VerticalLayout {
 	private final Button logInButton;
 	private final Label wrongPasswordOrEmailLabel;
 	
-	public MyLoginForm(MyRegistrationForm registrationForm) {
+	public MyLoginForm(UserDataBase userDataBase) {
 		setSizeUndefined();
 		
 		emailField = new TextField("E-mail:");
@@ -53,8 +53,7 @@ public class MyLoginForm extends VerticalLayout {
 		logInButton.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				Table tableOfUsers = registrationForm.getTableOfUsers();
-				if (tableOfUsers.containsId(emailField.getValue()) && tableOfUsers.getItem(emailField.getValue()).getItemProperty("password").getValue().toString().equals(passwordField.getValue())) {
+				if (userDataBase.checkIfUsernameAndPasswordMatches(emailField.getValue(), passwordField.getValue())) {
 					getSession().setAttribute("user", emailField.getValue());
 					getUI().getNavigator().navigateTo("Board");
 				} else {

@@ -14,6 +14,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public class WelcomeView extends VerticalLayout implements View {
 
+	UserDataBase userDataBase = new UserDataBase();
+	
 	public WelcomeView() {
 		setSizeFull();
 		setStyleName("WelcomeView");
@@ -68,12 +70,12 @@ public class WelcomeView extends VerticalLayout implements View {
 		welcomeTextLabel.setWidth("419px");
 		welcomeTextLabel.addStyleName("WelcomeView-welcomeTextLabel");
 		
-		MyRegistrationForm registrationForm = new MyRegistrationForm();
+		MyRegistrationForm registrationForm = new MyRegistrationForm(userDataBase);
 		registrationForm.addStyleName("WelcomeForm-registrationForm");
 		
 		rightLayout.addComponent(registrationForm);
 		
-		MyLoginForm loginForm = new MyLoginForm(registrationForm);
+		MyLoginForm loginForm = new MyLoginForm(userDataBase);
 		loginForm.addStyleName("WelcomeView-loginForm");
 		
 		leftContentLayout.addComponents(pinBoardLogoImage, welcomeTextLabel, loginForm);

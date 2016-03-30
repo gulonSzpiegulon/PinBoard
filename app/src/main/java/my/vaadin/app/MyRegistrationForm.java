@@ -1,5 +1,7 @@
 package my.vaadin.app;
 
+import javax.activation.MailcapCommandMap;
+
 import com.vaadin.data.Validator;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.event.FieldEvents.BlurEvent;
@@ -26,8 +28,6 @@ public class MyRegistrationForm extends VerticalLayout {
 	private final Label wrongPasswordFormatLabel;
 	private final Button signUpButton;
 	private final Label signUpFailedLabel;
-	private final BeanContainer<String, BoardUser> userDataBase;
-	private final Table tableOfUsers;
 	
 	private final class NameValidator implements Validator {
 		private boolean isValid = false; 
@@ -143,7 +143,7 @@ public class MyRegistrationForm extends VerticalLayout {
 	    }
 	}
 	
-	MyRegistrationForm() {
+	MyRegistrationForm(UserDataBase userDataBase) {
 		setSizeUndefined();
 		
 		registrationTitleLabel = new Label("Don't have an accont yet?");
@@ -222,11 +222,11 @@ public class MyRegistrationForm extends VerticalLayout {
 				} else if (!nameValidator.isValid || !surnameValidator.isValid || !emailValidator.isValid || !passwordValidator.isValid) {
 					signUpFailedLabel.setValue("At least one of the fields is incorrect!");
 				} else {
-					if (tableOfUsers.containsId(mailField.getValue())) {
+					if (userDataBase.contains(mailField.getValue())) {
 						wrongMailFormatLabel.setValue("This e-mail is occupied already!");
 						signUpFailedLabel.setValue("Try another e-mail address!");
 					} else {
-						userDataBase.addBean(new BoardUser(nameField.getValue(), surnameField.getValue(), mailField.getValue(), passwordField.getValue()));
+						userDataBase.addNewUser(nameField.getValue(), surnameField.getValue(), mailField.getValue(), passwordField.getValue());
 						signUpFailedLabel.setValue("You've registered succesfully!");
 					}
 				}
@@ -246,18 +246,6 @@ public class MyRegistrationForm extends VerticalLayout {
 		signUpLayout.addStyleName("MyRegistratationForm-signUpLayout");
 		signUpLayout.addComponents(signUpButton, signUpFailedLabel);
 		
-		userDataBase = new BeanContainer<String, BoardUser>(BoardUser.class);
-		userDataBase.setBeanIdProperty("mail");
-		tableOfUsers = new Table("Table of board users", userDataBase);	//dobra chyba lepiej to wywalic do zewnetrznej klasy ktora jeszcze bedzie miala mozliwosc zapisu do 
-		//pliku i odczytu z pliku bo po zalowoganiu i wylogowaniu juz nie da sie zalogowac bo wszystkie dane sa tracone no bo wychodzimy z registratnion form i twrzy sie nowe
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//!!!!!!!!!!!!!!!!!!!!!!!!!
 		addComponents(registrationTitleLabel, registrationTextLabel, nameLayout, surnameLayout, mailLayout, passwordLayout, signUpLayout);
-	}
-	
-	Table getTableOfUsers() {
-		return tableOfUsers;
 	}
 }
