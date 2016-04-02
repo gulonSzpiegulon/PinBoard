@@ -57,7 +57,7 @@ public class WelcomeView extends VerticalLayout implements View {
 		
 		FileResource resource = new FileResource(new File(VaadinService.getCurrent()
                 .getBaseDirectory().getAbsolutePath() +
-                "/images/pinBoardLogoFat.png"));
+                "/VAADIN/themes/mytheme/IMAGES/pinBoardLogoFat.png"));
 		Image pinBoardLogoImage = new Image("", resource);
 		pinBoardLogoImage.setWidth("175px");
 		pinBoardLogoImage.setHeight("75px");

@@ -7,16 +7,28 @@ public class PinList {
 	private String name = "";
 	private List<PinCard> pinCards = new ArrayList<PinCard>();
 	
+	public PinList(String pinListName) {
+		name = pinListName;
+	}
+
+	public void addPinCard(String nameOfPinCard) {
+		pinCards.add(new PinCard(nameOfPinCard));
+	}
+
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public String print() {
+		StringBuilder stringBuilder = new StringBuilder(name + " : ");
+		for (int i = 0; i < pinCards.size(); i++) {
+			stringBuilder.append(pinCards.get(i).print());
+			if (i != (pinCards.size() - 1)) {
+				stringBuilder.append(" | ");
+			}
+		}
+		return stringBuilder.toString();
 	}
-	public List<PinCard> getPinCards() {
-		return pinCards;
-	}
-	public void setPinCards(List<PinCard> pinCards) {
-		this.pinCards = pinCards;
-	}
+	
+	
 }

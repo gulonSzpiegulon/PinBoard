@@ -176,4 +176,51 @@
         margin-top: 8px;
         color: red;
     }
+
+
+
+
+
+
+
+
+
+
+
+    .BoardView {
+        background-color: #00A2FF;
+    }
+
+    .BoardView-navbarLayout {
+        background-color: #0070B3;
+       border-bottom: 1px solid black;
+    }
+
+    .BoardView-pinBoardLogoImage {
+        margin-top: -20px;
+        margin-left: 10px;
+    }
+
+    .BoardView-userNameLabelAndLogoutButtonLayout {
+
+    }
+
+    .BoardView-userNameLabel {
+        text-align: right;
+        margin-right: 20px;
+        margin-top: 8px;
+        font-weight: bold;
+    }
+
+    .v-icon {
+        margin-left: -16px;
+        margin-top: -4px;
+        border-bottom: 1px solid black;
+    }
+
+    .BoardView-pinBoardBackgroundPanel {
+        background-color: red;
+        border: 0px;
+        border-radius: 0px;
+    }
 }

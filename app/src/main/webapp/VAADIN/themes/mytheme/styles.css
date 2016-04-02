@@ -13051,3 +13051,40 @@ div.v-layout.v-horizontal.v-widget {
 	margin-top: 8px;
 	color: red;
 }
+
+.mytheme .BoardView {
+	background-color: #00A2FF;
+}
+
+.mytheme .BoardView-navbarLayout {
+	background-color: #0070B3;
+	border-bottom: 1px solid black;
+}
+
+.mytheme .BoardView-pinBoardLogoImage {
+	margin-top: -20px;
+	margin-left: 10px;
+}
+
+.mytheme .BoardView-userNameLabel {
+	text-align: right;
+	margin-right: 20px;
+	margin-top: 8px;
+	font-weight: bold;
+}
+
+.mytheme .v-icon {
+	margin-left: -16px;
+	margin-top: -4px;
+	border-bottom: 1px solid black;
+}
+
+.mytheme .BoardView-pinBoardBackgroundPanel {
+	background-color: red;
+	border: 0px;
+	border-radius: 0px;
+}
+
+.mytheme .l {
+	background-color: black;
+}

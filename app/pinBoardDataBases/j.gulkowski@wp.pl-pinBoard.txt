@@ -1,0 +1,3 @@
+pierwsza lista : 
+druga lista : 
+trzecia lista najdluzsza w nazwie : karta pierwsza | karta druga | karta 
