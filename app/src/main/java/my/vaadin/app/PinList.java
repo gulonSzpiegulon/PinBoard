@@ -1,5 +1,6 @@
 package my.vaadin.app;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,22 @@ public class PinList {
 			}
 		}
 		return stringBuilder.toString();
+	}
+
+	public int getPinCardsSize() {
+		return pinCards.size();
+	}
+
+	public PinCard getPinCard(int index) {
+		if (index < pinCards.size() && index >= 0) {
+			return pinCards.get(index);
+		} else {
+			return null;
+		}
+	}
+
+	public void deletePinList(PinCard pinCard) {
+		pinCards.remove(pinCard);
 	}
 	
 	

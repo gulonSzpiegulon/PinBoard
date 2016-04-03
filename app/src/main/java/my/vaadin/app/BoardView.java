@@ -111,7 +111,7 @@ public class BoardView extends VerticalLayout implements View {
 	public void enter(ViewChangeEvent event) {
        userNameLabel.setValue(String.valueOf(getSession().getAttribute("user")));	//unfortunatelly it has to be here - it cannot 
        //be in constructor so userNameLabel has to be sut up also here
-       pinBoardLayout = new PinBoardLayout(userNameLabel.getValue());	//this also as it uses the attribute from the session that is provided only in this method
+       pinBoardLayout = new PinBoardLayout(userNameLabel.getValue(), pinBoardPanel);	//this also as it uses the attribute from the session that is provided only in this method
        pinBoardPanel.setContent(pinBoardLayout);	//and of course this as we cannot add null object to pinBoardPanel 
 	}
 	

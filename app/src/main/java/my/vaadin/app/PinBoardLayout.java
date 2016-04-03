@@ -17,12 +17,12 @@ public class PinBoardLayout extends HorizontalLayout {
 	private PinBoard pinBoard = new PinBoard();
 	private final String username; 
 	
-	public PinBoardLayout(String username) {
+	public PinBoardLayout(String username, Panel pinBoardPanel) {
 		setSizeUndefined();
 		setStyleName("PinBoardLayout");
 		this.username = username;
 		readFromFileAndSetUpDataBase();
-		setUpLayoutAccordingToDataBase();
+		setUpLayoutAccordingToDataBase(pinBoardPanel);
 	}
 
 	private void readFromFileAndSetUpDataBase() {
@@ -68,26 +68,24 @@ public class PinBoardLayout extends HorizontalLayout {
 		//System.out.println(pinBoard.print());
 	}
 	
-	public void setUpLayoutAccordingToDataBase() {	//this function is used not only during constructor
+	public void setUpLayoutAccordingToDataBase(Panel pinBoardPanel) {	//this function is used not only during constructor
 		//execution just after reading from file but also when any change is made (so with every button 
 		//click that adds/ modifies or deletes any of compoments of this layout)
+		removeAllComponents();	//first of all we have to remove from the display every pinList and pinCard
 		
-		removeAllComponents();
-		
-		
-		for (int i = 0; i < pinBoard.getPinListsSize(); i++) {
+		for (int i = 0; i < pinBoard.getPinListsSize(); i++) {	//here we add each pinList that can be found in database
 			Label pinListNameLabel = new Label(pinBoard.getPinList(i).getName());
 			pinListNameLabel.setStyleName("PinBoardLayout-pinListNameLabel");
 		
-			DeletePinListButton deletePinListButton = new DeletePinListButton(this, pinBoard, pinBoard.getPinList(i));	
+			DeletePinListButton deletePinListButton = new DeletePinListButton(this, pinBoard, pinBoard.getPinList(i), pinBoardPanel);	
 			
-			HorizontalLayout pinListNameAndDeletePinListButtonLayout = new HorizontalLayout();
-			pinListNameAndDeletePinListButtonLayout.setStyleName("PinBoardLayout-pinListNameAndPinListDeleteButtonLayout");
-			pinListNameAndDeletePinListButtonLayout.addComponents(pinListNameLabel, deletePinListButton);
+			HorizontalLayout pinListNameLabelAndDeletePinListButtonLayout = new HorizontalLayout();
+			pinListNameLabelAndDeletePinListButtonLayout.setStyleName("PinBoardLayout-pinListNameLabelAndDeletePinListButtonLayout");
+			pinListNameLabelAndDeletePinListButtonLayout.addComponents(pinListNameLabel, deletePinListButton);
 			
 			VerticalLayout pinListLayout = new VerticalLayout();
 			pinListLayout.setSizeUndefined();
-			pinListLayout.addComponent(pinListNameAndDeletePinListButtonLayout);
+			pinListLayout.addComponent(pinListNameLabelAndDeletePinListButtonLayout);
 			
 			Panel pinListPanel = new Panel();
 			pinListPanel.addStyleName("PinBoardLayout-pinListPanel");
@@ -95,7 +93,39 @@ public class PinBoardLayout extends HorizontalLayout {
 			pinListPanel.setContent(pinListLayout);
 			
 			addComponent(pinListPanel);
+			
+			//and every pinCard of actual pinList
+			for (int j = 0; j < pinBoard.getPinList(i).getPinCardsSize(); j++) {
+				Label pinCardNameLabel = new Label(pinBoard.getPinList(i).getPinCard(j).getName());	
+				pinCardNameLabel.addStyleName("PinBoardLayout-pinCardNameLabel");
+				
+				DeletePinCardButton deletePinCardButton = new DeletePinCardButton(this, pinBoard.getPinList(i), pinBoard.getPinList(i).getPinCard(j), pinBoardPanel);
+				
+				HorizontalLayout pinCardNameLabelAndDeletePinCardButtonLayout = new HorizontalLayout();
+				pinCardNameLabelAndDeletePinCardButtonLayout.addStyleName("PinBoardLayout-pinCardNameLabelAndDeletePinCardButtonLayout");
+				pinCardNameLabelAndDeletePinCardButtonLayout.addComponents(pinCardNameLabel, deletePinCardButton);
+			
+				pinListLayout.addComponent(pinCardNameLabelAndDeletePinCardButtonLayout);
+			}
+			
+			//after adding all pinCards that are in the pinList to the pinListPanel we have to add a layout that's responsible for adding new pinCard
+			AddPinCardLayout addPinCardLayout = new AddPinCardLayout(this, pinBoard.getPinList(i), pinBoardPanel);
+			pinListLayout.addComponent(addPinCardLayout);
 		}
+		
+		//after adding all pinLists to the display we have to add special layout that allow us to add new pinList
+		AddPinListLayout addPinListLayout = new AddPinListLayout(this, pinBoard, pinBoardPanel); //pinBoardPanel just have to be sent here
+		addComponent(addPinListLayout);
+		
+		//after adding a pinList if the number of pinLists is too big to display all of them the scrollbar should appear and be moved to the right position
+		pinBoardPanel.setScrollLeft(10000); //10000 because even if a guy had a really big screen it should move the scrollbar to the right
+		
+		
+		
+		
+		//however setScrollLeft to the right should only be done after addition of new pinList
+		//as well as setScrollTop to the bottom after addition of new pinCard
+		//and setUpLayoutAcc.... executes also when list or card is deleted and then scrolbar should stay as it stayed - soooo it should be repaired
 		
 	}
 }

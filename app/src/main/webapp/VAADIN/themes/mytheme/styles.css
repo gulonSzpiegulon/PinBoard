@@ -13085,6 +13085,6 @@ div.v-layout.v-horizontal.v-widget {
 	border-radius: 0px;
 }
 
-.mytheme .l {
-	background-color: black;
+.mytheme .PinBoardLayout-pinListPanel {
+	max-height: 10%;
 }
