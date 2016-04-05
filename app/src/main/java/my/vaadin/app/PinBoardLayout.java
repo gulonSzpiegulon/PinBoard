@@ -1,9 +1,11 @@
 package my.vaadin.app;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import com.vaadin.ui.Alignment;
@@ -31,6 +33,7 @@ public class PinBoardLayout extends HorizontalLayout {
 			BufferedReader reader = new BufferedReader(new FileReader(pathToTheFile));
 			String line = null;
 			while( (line = reader.readLine()) != null ) {
+				System.out.println("|" + line + "|");
 				String pinListName = line.substring(0, line.indexOf(" : "));	//pinListName is always on the beginning of the line and 
 				//ends with " : " breake string which is not put into substring
 				pinBoard.addPinList(pinListName);	//new list is added to database
@@ -136,16 +139,38 @@ public class PinBoardLayout extends HorizontalLayout {
 		AddPinListLayout addPinListLayout = new AddPinListLayout(this, pinBoard); //pinBoardPanel just have to be sent here
 		addComponent(addPinListLayout);
 		
-		if (wasJustPinListAdded) {
-			//after adding a pinList if the number of pinLists is too big to display all of them the scrollbar should appear and be moved to the right position
-			System.out.println("Przesuwam w prawo!!!");
-			pinBoardPanel.setScrollLeft(10000); //10000 because even if a guy had a really big screen it should move the scrollbar to the right
-		}
-		
-		
 		//however setScrollLeft to the right should only be done after addition of new pinList
 		//as well as setScrollTop to the bottom after addition of new pinCard
 		//and setUpLayoutAcc.... executes also when list or card is deleted and then scrolbar should stay as it stayed - soooo it should be repaired
+		writeToTheFile();	//it is not needed when this function is called from the constructor of this class but during every other call it is so... it is here not in other place
+	}
+	
+	private void writeToTheFile() {
+		String pathToTheFile = "pinBoardDataBases" + File.separator + username + "-pinBoard.txt";
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(pathToTheFile));
+			for(int i = 0; i < pinBoard.getPinListsSize(); i++) {
+				StringBuilder line = new StringBuilder();
+				line.append(pinBoard.getPinList(i).getName());
+				line.append(" : ");
+				int j;	//we have to to this to have 	list : card | card | card 
+							//and not to have				list : card | card | card |
+				for (j = 0; j < pinBoard.getPinList(i).getPinCardsSize() - 1; j++) {
+					line.append(pinBoard.getPinList(i).getPinCard(j).getName());
+					line.append(" | ");
+				}
+				if (pinBoard.getPinList(i).getPinCardsSize() > 0) {	//it is needed
+					line.append(pinBoard.getPinList(i).getPinCard(j).getName());	//as we have to do this in this situation list : card | card but not int this list : 
+				}
+				writer.write(line.toString());
+				if (i < pinBoard.getPinListsSize() - 1) {	//it has to be as reader couldn't read from file which has an newLine character at the end
+					writer.newLine();
+				}
+			}
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("IOException during writeToFile() method of pinBoardLayout class!!!");
+		}
 		
 	}
 }

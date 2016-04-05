@@ -1,3 +1,4 @@
-Pierwsza lista : pierwsza karta
-Druga lista : 
-Trzecia lista najdlu¿sza : karta pierwsza | karta druga | karta trzecia | karta czwarta | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | elo
+Pierwsza lista : pierwsza Karta | druga | no i trzecia
+Druga Lista : pierwsza | druga | trzecia | 1 | 2 | 3 | Dlugiiiii napisssssss bardzoooo dluuuugi na kilka linijek najdluzszy ze wszystkich wszystkie inne sa krotsze itd itd  | 4 | 5 | 6 | 7 | 8 | 9 | 10
+Trzecia : 
+Czwarta : cos tam | no i moze jeszcze to...
