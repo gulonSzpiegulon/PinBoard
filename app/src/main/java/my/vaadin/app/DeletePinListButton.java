@@ -1,21 +1,20 @@
 package my.vaadin.app;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.themes.BaseTheme;
 
 public class DeletePinListButton extends Button {
 	
-	public DeletePinListButton(PinBoardLayout pinBoardLayout, PinBoard pinBoard, PinList pinList, Panel pinListPanel) {
+	public DeletePinListButton(PinBoardLayout pinBoardLayout, PinBoard pinBoard, PinList pinList) {
 		addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				pinBoard.deletePinList(pinList);	//deleting from database
-				pinBoardLayout.setUpLayoutAccordingToDataBase(pinListPanel);	//refreshing the display 
+				pinBoardLayout.setUpLayoutAccordingToDataBase(false, null);	//refreshing the display 
 			}
 		});
-		setWidth("40px");
-		setHeight("40px");
-		setCaption("X");
-		setStyleName("DeletePinListButton");
+		setHeight("30px");
+		setCaption("x");
+		addStyleName("DeletePinListButton");
 	}
 }

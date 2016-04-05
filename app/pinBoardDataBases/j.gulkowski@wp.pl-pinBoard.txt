@@ -1,3 +1,3 @@
-pierwsza lista : 
-druga lista : 
-trzecia lista najdluzsza w nazwie : karta pierwsza | karta druga | karta 
+Pierwsza lista : pierwsza karta
+Druga lista : 
+Trzecia lista najdlu¿sza : karta pierwsza | karta druga | karta trzecia | karta czwarta | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | elo

@@ -13052,10 +13052,6 @@ div.v-layout.v-horizontal.v-widget {
 	color: red;
 }
 
-.mytheme .BoardView {
-	background-color: #00A2FF;
-}
-
 .mytheme .BoardView-navbarLayout {
 	background-color: #0070B3;
 	border-bottom: 1px solid black;
@@ -13079,12 +13075,78 @@ div.v-layout.v-horizontal.v-widget {
 	border-bottom: 1px solid black;
 }
 
-.mytheme .BoardView-pinBoardBackgroundPanel {
-	background-color: red;
+.mytheme .BoardView-pinBoardPanel {
+	background-color: #00A2FF;
 	border: 0px;
 	border-radius: 0px;
 }
 
+.mytheme .PinBoardLayout {
+	margin-top: 40px;
+	margin-left: 40px;
+}
+
+.mytheme .PinBoardLayout-pinListPanelContainerLayout {
+	margin-right: 20px;
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.mytheme .AddPinCardLayout {
+	margin-bottom: 10px;
+}
+
+.mytheme .AddPinCardLayout-clickToAddPinCard {
+	text-align: left;
+}
+
+.mytheme .PinBoardLayout-pinListNameLabelAndDeletePinListButtonLayout {
+	padding-top: 10px;
+	border-bottom: 1px solid black;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	background-color: #0070B3;
+	margin-bottom: 10px;
+}
+
+.mytheme .PinBoardLayout-pinListNameLabel {
+	font-weight: bold;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.mytheme .DeletePinListButton {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
 .mytheme .PinBoardLayout-pinListPanel {
-	max-height: 10%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border: 0px;
+}
+
+.mytheme .PinBoardLayout-pinCardsOfPinListLayout {
+	margin-left: 10px;
+}
+
+.mytheme .PinBoardLayout-pinCardNameLabelAndDeletePinCardButtonLayout {
+	margin-bottom: 10px;
+}
+
+.mytheme ::-webkit-scrollbar {
+	width: 12px;
+}
+
+.mytheme ::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+}
+
+.mytheme ::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
